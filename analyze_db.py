@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import create_db
 
 # 1. Define paths relative to this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
