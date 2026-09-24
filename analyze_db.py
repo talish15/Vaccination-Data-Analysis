@@ -1,3 +1,4 @@
+import streamlit as st
 import os
 import sqlite3
 import pandas as pd
@@ -28,19 +29,18 @@ ORDER BY grand_total_doses DESC;
 df_summary = pd.read_sql_query(query, conn)
 conn.close()
 
-# 4. Display terminal results
-print("--- Vaccination Summary ---")
-print(df_summary.to_string(index=False))
+# 4. Display results in Streamlit
+st.title("Vaccination Data Summary")
+st.dataframe(df_summary)
 
-# 5. Generate and save a summary chart
-plt.figure(figsize=(8, 5))
-sns.barplot(data=df_summary, x='country', y='grand_total_doses', palette='Blues_d')
+# 5. Generate and display summary chart
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.barplot(data=df_summary, x='country', y='grand_total_doses', palette='Blues_d', ax=ax)
 plt.title('Total Vaccination Doses Administered by Country')
 plt.xlabel('Country')
 plt.ylabel('Total Doses')
+plt.xticks(rotation=45)
 plt.tight_layout()
 
-# Save plot to data directory
-chart_path = os.path.join(script_dir, "..", "data", "vaccination_summary.png")
-plt.savefig(chart_path)
-print(f"\nChart saved successfully to: {chart_path}")
+# Render chart in Streamlit dashboard
+st.pyplot(fig)
