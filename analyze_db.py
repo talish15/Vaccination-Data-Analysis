@@ -6,8 +6,7 @@ import seaborn as sns
 
 # 1. Define paths relative to this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(script_dir, "..", "data", "vaccination_db.db")
-
+db_path = os.path.join(script_dir, "data", "vaccination_db.db")
 # 2. Connect to SQLite database
 conn = sqlite3.connect(db_path)
 
